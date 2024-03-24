@@ -7,6 +7,7 @@ require_once "../lib/exploitPatch.php";
 require_once "../lib/mainLib.php";
 $gs = new mainLib();
 require "../lib/generateHash.php";
+include "../../config/misc.php";
 
 //initializing variables
 $lvlstring = $userstring = $songsstring = $sug = $sugg = $str = $morejoins = ""; $lvlsmultistring = []; $epicParams = []; $order = "uploadDate";
@@ -40,10 +41,12 @@ if(!empty($_POST["diff"])){
 
 
 //ADDITIONAL PARAMETERS
-if($gameVersion==0){
+if(!$nalevels) {
+	if($gameVersion==0){
 	$params[] = "levels.gameVersion <= 18";
-}else{
-	$params[] = "levels.gameVersion <= '$gameVersion'";
+	}else{
+		$params[] = "levels.gameVersion <= '$gameVersion'";
+	}	
 }
 if(!empty($_POST["original"]) AND $_POST["original"]==1){
 	$params[] = "original = 0";
